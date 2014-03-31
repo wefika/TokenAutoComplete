@@ -296,10 +296,15 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
             } else {
                 bestGuess = defaultObject(currentCompletionText());
             }
-            replaceText(convertSelectionToString(bestGuess));
-        } else {
-            super.performCompletion();
+
+            if (bestGuess != null) {
+                replaceText(convertSelectionToString(bestGuess));
+                return;
+            }
         }
+
+        super.performCompletion();
+        clearAndMoveFocus();
     }
 
     @Override
@@ -324,13 +329,18 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         if (enoughToFilter()) {
             performCompletion();
         } else {
-            //...otherwise look for the next field and focus it
-            //TODO: should clear existing text as well
+            clearAndMoveFocus();
+        }
+    }
 
-            View next = focusSearch(View.FOCUS_DOWN);
-            if (next != null) {
-                next.requestFocus();
-            }
+    private void clearAndMoveFocus() {
+        // clear text
+        clearText();
+
+        //...otherwise look for the next field and focus it
+        View next = focusSearch(View.FOCUS_DOWN);
+        if (next != null) {
+            next.requestFocus();
         }
     }
 
@@ -598,6 +608,19 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
                 editable.replace(start, end, ssb);
                 editable.setSpan(tokenSpan, start, start + ssb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
+        }
+    }
+
+    protected void clearText() {
+        Editable editable = getText();
+        int end = getSelectionEnd();
+        int start = tokenizer.findTokenStart(editable, end);
+        if (start < prefix.length()) {
+            start = prefix.length();
+        }
+
+        if (editable != null) {
+            editable.replace(start, end, "");
         }
     }
 
