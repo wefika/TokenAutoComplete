@@ -107,6 +107,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         }
     }
 
+    @TargetApi(8)
     private void init() {
         setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         objects = new ArrayList<Object>();
@@ -354,6 +355,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         return handled;
     }
 
+    @TargetApi(8)
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean handled = false;
@@ -399,6 +401,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         return false;
     }
 
+    @TargetApi(8)
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
