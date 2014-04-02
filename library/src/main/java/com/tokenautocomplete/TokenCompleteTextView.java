@@ -1,5 +1,6 @@
 package com.tokenautocomplete;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -107,7 +108,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         }
     }
 
-    @SuppressWarnings("NewApi")
+    @SuppressLint("NewApi")
     private void init() {
         setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         objects = new ArrayList<Object>();
@@ -355,7 +356,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         return handled;
     }
 
-    @SuppressWarnings("NewApi")
+    @SuppressLint("NewApi")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         boolean handled = false;
@@ -401,7 +402,7 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
         return false;
     }
 
-    @SuppressWarnings("NewApi")
+    @SuppressLint("NewApi")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getActionMasked();
