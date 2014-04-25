@@ -548,11 +548,15 @@ public abstract class TokenCompleteTextView extends MultiAutoCompleteTextView im
     }
 
     @Override
-    public void onFocusChanged(boolean hasFocus, int direction, Rect previous) {
+    public void onFocusChanged(final boolean hasFocus, int direction, Rect previous) {
         super.onFocusChanged(hasFocus, direction, previous);
 
-        handleFocus(hasFocus);
-
+        post(new Runnable() {
+            @Override
+            public void run() {
+                handleFocus(hasFocus);
+            }
+        });
     }
 
     @Override
